@@ -1,17 +1,18 @@
 import {getAjax} from '../../lib/Ajax'
 import {getHtmlDom} from '../../lib/HtmlDom'
 class  Editor {
-    data;
+    data:any;
     ajax;
     htmlDom;
      constructor(data:any){
-          this.data = data
+         this.data = data;
           this.ajax = getAjax();
           this.htmlDom = getHtmlDom();
      }
      load(){
        this.ajax.get("public/oa/test.html").then((html)=>{
-            this.htmlDom.transHtmlToJson(html);
+           //加载资源模板后，解析为json对象，并放到this.data中
+            this.htmlDom.transHtmlToJson(html,this.data);
         })
      }
 }

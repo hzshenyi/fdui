@@ -3,11 +3,9 @@ class HtmlDom{
     constructor(){
 
     }
-    transHtmlToJson(html:any){
-        debugger
+    transHtmlToJson(html:any,data:any){
       let dom = this.parseHtmlToDom(html);
-      let data = this.parseDomToJson(dom);
-       return data;
+      this.parseDomToJson(dom,data);
     }
     parseHtmlToDom(html:string) {
         let domRoot = new DOMParser().parseFromString(html, "text/html");
@@ -15,16 +13,15 @@ class HtmlDom{
         // resourceTemplateDom && (resourceTemplateDom.content.$$root = resourceTemplateDom);
         return resourceTemplateDom&&resourceTemplateDom.content;
       }
-    parseDomToJson(dom:any) {
+    parseDomToJson(dom:any,data:any) {
         if(!dom){return {}}
         let newDom:any;
-        let data:{tagName:string,children:any} = { tagName: "template", children: [] };
+        data["tagName"] = "template";
+        data["children"] = [];
         for (var i = 0; i < dom.children.length; i++) {
           newDom = {};
           data.children.push(this._getJsonByDom(dom.children[i]))
-          //this._parseDom(dom.children[i], newDom);
         }
-        debugger
         return data;
       }
       _getJsonByDom(dom:any) {
