@@ -15,16 +15,57 @@ class HtmlDom{
         // resourceTemplateDom && (resourceTemplateDom.content.$$root = resourceTemplateDom);
         return resourceTemplateDom&&resourceTemplateDom.content;
       }
-      parseDomToJson(dom:any) {
+    parseDomToJson(dom:any) {
         if(!dom){return {}}
         let newDom:any;
-        let domJson = { tagName: "template", children: [] };
+        let data:{tagName:string,children:any} = { tagName: "template", children: [] };
         for (var i = 0; i < dom.children.length; i++) {
           newDom = {};
-          domJson.children.push(newDom);
+          data.children.push(this._getJsonByDom(dom.children[i]))
           //this._parseDom(dom.children[i], newDom);
         }
-        return domJson;
+        debugger
+        return data;
+      }
+      _getJsonByDom(dom:any) {
+          let json:any = {};
+        if(dom.nodeType==3){//表示纯文本节点
+            json["tagName"] = "text";
+            json["innerHTML"] = dom.nodeValue;
+            json["$$nodeType"] = dom.nodeType;
+            return json;
+         }
+         json["$$nodeType"] = dom.nodeType;
+         json["tagName"] = dom.localName;
+         if(dom.children.length==0){
+            json["innerHTML"] = dom.innerHTML;
+          
+         }
+         let attList = dom.attributes;
+         for(let i = 0;i<attList.length;i++){
+             let att = attList[i];
+             json[att.name] = att.value;
+         }
+        // json.$$targetDom = dom;
+        if(!dom.children){return json}//如果没有子节点则退出
+        let domList=[];
+        if(dom.children.length>0){
+          domList = dom.childNodes;
+        }else{
+          domList = dom.children;   
+        }
+       
+        if(domList.length>0){
+            json.children = [];
+            for(let i=0;i<domList.length;i++){
+                if(domList[i].nodeType==3 && domList[i].nodeValue.trim()==""){//如果是文本节点
+                 continue
+                }
+             let json1 = this._getJsonByDom(domList[i]);
+             json.children.push(json1);
+            }
+        }
+       return json;
       }
 }
 const getHtmlDom = ()=>{
