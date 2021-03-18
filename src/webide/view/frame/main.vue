@@ -2,7 +2,7 @@
   <el-container style="height:100%">
     <el-header>Header</el-header>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="300px">
         <DomTreeLeft :elList=data.children></DomTreeLeft>
       </el-aside>
       <el-main>
