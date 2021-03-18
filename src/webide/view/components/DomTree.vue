@@ -37,19 +37,19 @@
      <div class="group" v-if="el.children&&el.innerHTML"
       ><span style="width: 100%">{{ el.innerHTML }}</span></div>
       <!-- 替归显示子控件 -->
-    <ResourceTree v-if="el.children" :elList="el.children"></ResourceTree>
+    <DomTree v-if="el.children" :elList="el.children"></DomTree>
    
     <span class="tagEnd" v-show="el.$$nodeType != 3"
       >&lt;/{{ el.tagName }}></span
     >
   </div>
 </template>
-<script>
-export default {
-    props:{
-         elList:{
-
-         }
+<script setup>
+import {defineProps} from 'vue'
+defineProps(
+    {
+         elList:{}
     }
-}
+)
+
 </script>

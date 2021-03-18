@@ -2,15 +2,28 @@
   <el-container style="height:100%">
     <el-header>Header</el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px">
+        <DomTreeLeft :elList=data.children></DomTreeLeft>
+      </el-aside>
       <el-main>
-        <editor></editor>
+        <DomTree :elList=data.children></DomTree>
       </el-main>
     </el-container>
   </el-container>
 </template>
 <script setup>
-import editor from './editor.vue'
+
+import {reactive,onMounted} from 'vue'
+import {getEditor} from './editor'
+import DomTreeLeft from '../components/DomTreeLeft.vue'
+import DomTree from '../components/DomTree.vue'
+let data = reactive({})
+let editor = getEditor(data);
+//挂载后加载资源
+onMounted(()=>{
+    editor.load();
+})
+
 </script>
 <style scoped>
   .el-header, .el-footer {
@@ -23,8 +36,7 @@ import editor from './editor.vue'
   .el-aside {
     background-color: #D3DCE6;
     color: #333;
-    text-align: center;
-    line-height: 200px;
+    
   }
 
   .el-main {
