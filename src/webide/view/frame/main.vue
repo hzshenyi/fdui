@@ -14,7 +14,7 @@
 <script setup>
 
 import {reactive,onMounted} from 'vue'
-import {getEditor} from './editor'
+import {getEditor} from '../../module/Editor'
 import DomTreeLeft from '../components/DomTreeLeft.vue'
 import DomTree from '../components/DomTree.vue'
 let data = reactive({})
