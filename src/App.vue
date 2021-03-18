@@ -1,11 +1,8 @@
 <template>
   <mainFrame></mainFrame>
 </template>
-
 <script setup lang="ts">
-
 import mainFrame from './webide/view/frame/main.vue'
-
 </script>
 
 <style>
@@ -16,4 +13,5 @@ html,body{width:100%;height: 100%;margin:0;}
   -moz-osx-font-smoothing: grayscale;
   width:100%;height: 100%;
 }
+ul,li{ padding-left:10px;padding-top:3px;margin:0;list-style:none}
 </style>
