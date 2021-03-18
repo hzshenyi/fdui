@@ -10,6 +10,7 @@
     @mouseover.stop="el.$$overed = true"
     @mouseout="el.$$overed = false"
   >
+    
     <span v-if="el.children"  @click="fold(el)" class="foldIcon">-</span>
     <div class="line">
       <span v-show="el.$$nodeType != 3"
