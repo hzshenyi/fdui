@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = "http://127.0.0.1:3000"
+axios.defaults.baseURL = "http://192.168.31.142:3000"
 axios.interceptors.request.use(config=>{
   //  config.responseType = "json"
     return config

@@ -6,12 +6,10 @@ import mainFrame from './webide/view/frame/main.vue'
 </script>
 
 <style>
-html,body{width:100%;height: 100%;margin:0;}
-#app {
-  font-family:"Microsoft YaHei" Avenir, Helvetica, Arial, sans-serif;font-size:14px;
+html,body,#app{width:100%;height: 100%;margin:0;}
+* {
+  font-family:"Microsoft YaHei";font-size:14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width:100%;height: 100%;
 }
-
 </style>

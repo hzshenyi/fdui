@@ -12,7 +12,7 @@
    
 </template>
 <style scoped>
-  ul,li{ padding-left:10px;padding-top:3px;margin:0;list-style:none;border:solid 1px #D3DCE6;cursor:pointer;}
+  ul,li{ padding-left:10px;padding-top:1px;margin:0;list-style:none;border:solid 1px #D3DCE6;cursor:pointer;}
   li.overed{border:solid 1px rgb(250, 175, 175);}
   li.actived{border:solid 1px rgb(25, 43, 212);}
   
