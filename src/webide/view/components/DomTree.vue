@@ -17,11 +17,8 @@
     </template>
     <!-- 如果是文本 -->
       <template v-if="el.tagName=='text'">
-      <span   @mouseover.stop="el.$$overed = true"  @mouseout="el.$$overed = false" class="fd-innerHtml" v-if="el.innerHTML"
-       @dblclick="modifyInnerHtml(el,$event)">
-       <!-- 阅读模式 -->
-       <span v-if="!el.$$edited"  class="fd-innerHtml-read">{{ el.innerHTML }}</span>
-       </span>     
+      <div contenteditable=true  @mouseover.stop="el.$$overed = true"  @mouseout="el.$$overed = false" 
+      class="fd-innerHtml" v-if="el.innerHTML"  @blur="modifyInnerHtml(el,$event)">{{el.innerHTML}}</div>   
     </template>
       </li>
   </ul>
@@ -31,7 +28,7 @@
   li.overed{border:solid 1px rgb(250, 175, 175);}
   li.actived{border:solid 1px rgb(25, 43, 212);}
   .fd-tag{color:rgb(70, 132, 248)}
-  .fd-innerHtml{white-space:break-spaces;background-color: #E9EEF3;}
+  .fd-innerHtml{padding-left:2px;white-space:break-spaces;background-color: #E9EEF3;}
 
 </style>
 <script setup>
@@ -49,17 +46,22 @@ const selectDom = (el)=>{
     window.elSelected = el;
 }
 const modifyInnerHtml = (el,dom)=>{
+  el.innerHTML = dom.currentTarget.innerText;
+}
+const modifyInnerHtmlbak111 = (el,dom)=>{
  const spanObj = dom.currentTarget;
  const w = spanObj.offsetWidth+15;
  const h = spanObj.offsetHeight;
  const computedStyle = document.defaultView.getComputedStyle(spanObj, null); 
  const c = computedStyle.backgroundColor;
+ let textareaObj;
  //如果没有编辑字段
  if(spanObj.children.length==1){
-  const textareaObj = document.createElement("textarea");
+  textareaObj = document.createElement("textarea");
   textareaObj.innerHTML = el.innerHTML;
   // dom.currentTarget.innerHTML = `<textarea style="margin:0;padding:0;border:0;width:${w}px;height:${h}px;background-color:${c}">${el.innerHTML}</textarea>`
   textareaObj.style = `margin:0;padding:0;border:0;width:${w}px;height:${h}px;background-color:${c}`
+  textareaObj.setAttribute("autosize",true);
   textareaObj.onchange = (e)=>{
       el.innerHTML = e.currentTarget.value;
       el.$$edited = false;
@@ -67,9 +69,12 @@ const modifyInnerHtml = (el,dom)=>{
   }
   spanObj.appendChild(textareaObj)
  }else{
-   spanObj.children[1].style.display = "";//显示编辑字段
+   textareaObj = spanObj.children[1]
+   textareaObj.style.width = w+"px";
+   textareaObj.style.height = h+"px";
+   textareaObj.style.display = "";//显示编辑字段
  }
- 
+ textareaObj.focus();
  el.$$edited = !el.$$edited;
 }
 </script>
