@@ -7,10 +7,8 @@
     <!-- 非文本 -->
     <template v-if="el.tagName!='text'">
       <span class="fd-tag" @click="selectDom(el)"  @mouseover.stop="el.$$overed = true"  @mouseout="el.$$overed = false">&lt;{{el.tagName}}></span>
-        <span  class="fd-innerHtml" v-if="el.innerHTML" @dblclick="modifyInnerHtml(el,$event)">
-          <!-- 阅读模式 -->
-          <span v-if="!el.$$edited"  class="fd-innerHtml-read">{{ el.innerHTML }}</span>
-          </span>     
+          <div contenteditable=true  @mouseover.stop="el.$$overed = true"  @mouseout="el.$$overed = false" 
+      class="fd-innerHtml" v-if="el.innerHTML"  @blur="modifyInnerHtml(el,$event)">{{el.innerHTML}}</div> 
     
       <DomTree v-if="el.children" :elList="el.children"></DomTree>
       <span  class="fd-tag"  @click="selectDom(el)"  @mouseover.stop="el.$$overed = true"  @mouseout="el.$$overed = false">&lt;/{{el.tagName}}></span>
@@ -28,7 +26,7 @@
   li.overed{border:solid 1px rgb(250, 175, 175);}
   li.actived{border:solid 1px rgb(25, 43, 212);}
   .fd-tag{color:rgb(70, 132, 248)}
-  .fd-innerHtml{padding-left:2px;white-space:break-spaces;background-color: #E9EEF3;}
+  .fd-innerHtml{padding:0 5px 0 5px;white-space:break-spaces;background-color: #E9EEF3;display:-webkit-inline-box;}
 
 </style>
 <script setup>
